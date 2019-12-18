@@ -1,0 +1,300 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod1
+set $browser qutebrowser
+set $term termite
+set $editor termite -e 'nvim'
+set $mail thunderbird
+
+
+set $menu termite -e "bash -c 'compgen -c | sort -u | fzf --reverse | xargs -r swaymsg -t command exec'" -t "launcher"
+bindsym $mod+d exec $menu
+for_window [app_id="termite" title="launcher"] floating enable, border pixel 3
+
+bindsym $mod+a exec pavucontrol
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+#bindsym Print exec "scrot"
+#bindsym shift+Print exec "scrot -s && wait 1"
+bindsym mod4+l exec "swaylock -i /home/mear/Téléchargements/gunnm"
+gaps {
+    inner 0
+    outer 0
+}
+
+# cursor (wayland specific)
+seat * hide_cursor 5000
+
+# background (wayland specific)
+#output * bg "#000000" solid_color
+output "*" bg /home/mear/Téléchargements/gunnm fill
+
+# input configs
+# keyboard
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout fr
+    xkb_model thinkpad60
+    xkb_options compose:rctrl
+    repeat_delay 250
+    repeat_rate 25
+}
+input "6785:8217:Fuhlen_SM680_Mechanical_Keyboard" {
+    xkb_layout us
+    xkb_options compose:rctrl
+    repeat_delay 250
+    repeat_rate 25
+}
+
+# trackpad
+input * tap enabled
+
+# clear notifications
+bindsym Ctrl+Space exec "makoctl dismiss"
+bindsym Ctrl+Shift+Space exec "makoctl dismiss -a"
+
+bindsym $mod+Shift+colon move scratchpad
+bindsym $mod+colon scratchpad show
+#bindsym $mod+² exec grim ""$(xdg-user-dir Documents)/$(date +'%s_grim.png')"
+# pretty font
+font pango:Input Mono Condensed 8
+
+# thin line as a border
+default_border pixel 1
+
+# can be useful
+focus_follows_mouse yes
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec $term
+# start browser
+bindsym $mod+Shift+Return exec $browser
+# start editor/mail
+bindsym $mod+u exec $editor
+bindsym $mod+Shift+u exec $mail
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# move window to specific cornder
+mode "miniature" {
+    #   S resize
+    # a-----z-----e
+    # |           |
+    # q     s     d
+    # |           |
+    # w-----x-----c
+
+    # corner
+    # <border>   <window>       <gap>
+    # ± 1920     ± (1920 / 5)   ± (1920 / 20)
+    # middle
+    # <border>   <middle>      <window>
+    # ± 1920     ± (1920 / 2)  ± (1920 / 5x2)
+    bindsym a move position 96 54
+    bindsym e move position 1440 54
+    bindsym w move position 96 810
+    bindsym c move position 1440 810
+    bindsym z move position 768 54
+    bindsym q move position 96 432
+    bindsym d move position 1440 432
+    bindsym x move position 768 810
+
+    # center
+    bindsym s move position 768 432
+
+    # (1920x1080)/5 = 384x216
+    bindsym Shift+S resize set 384 216
+
+    # toggle between floating/tiling windows
+    bindsym $mod+space focus mode_toggle
+    bindsym space focus mode_toggle
+
+    # change focus
+    bindsym $mod+h focus left
+    bindsym $mod+j focus down
+    bindsym $mod+k focus up
+    bindsym $mod+l focus right
+
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "miniature"
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+z layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3"
+set $workspace4 "4"
+set $workspace5 "5"
+set $workspace6 "6"
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10"
+
+# switch to workspace
+bindsym $mod+ampersand workspace $workspace1
+bindsym $mod+eacute workspace $workspace2
+bindsym $mod+quotedbl workspace $workspace3
+bindsym $mod+apostrophe workspace $workspace4
+bindsym $mod+parenleft workspace $workspace5
+bindsym $mod+minus workspace $workspace6
+bindsym $mod+egrave workspace $workspace7
+bindsym $mod+underscore workspace $workspace8
+bindsym $mod+ccedilla workspace $workspace9
+bindsym $mod+agrave workspace $workspace10
+
+# move focused container to workspace
+bindsym $mod+1 move container to workspace $workspace1
+bindsym $mod+2 move container to workspace $workspace2
+bindsym $mod+3 move container to workspace $workspace3
+bindsym $mod+4 move container to workspace $workspace4
+bindsym $mod+5 move container to workspace $workspace5
+bindsym $mod+6 move container to workspace $workspace6
+bindsym $mod+7 move container to workspace $workspace7
+bindsym $mod+8 move container to workspace $workspace8
+bindsym $mod+9 move container to workspace $workspace9
+bindsym $mod+0 move container to workspace $workspace10
+
+# move workspace between screens
+bindsym $mod+v move workspace to output left
+bindsym $mod+b move workspace to output right
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# bindsym $mod+q restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+x exit
+
+# specefics floating windows
+# for_window[class=".*"] border pixel 1
+for_window [class="mpv"] floating enable
+for_window [class="feh"] floating enable
+for_window [class=".*"] split h
+for_window [instance="sun-awt-X11-XFramePeer"] floating enable # Java windows
+#for_window [class="Adl"] floating enable # Dofus
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [title="(?i)authy"] floating enable
+for_window [class="Pinentry"] floating enable
+for_window [class="Display"] floating enable
+for_window [title="Event Tester"] floating enable
+for_window [class="Sxiv"] floating enable
+for_window [class="Minecraft .*"] floating enable
+for_window [class="Matplotlib"] floating enable
+
+assign [class="discord"] $workspace1
+assign [class="Hexchat"] $workspace1
+assign [class="Caprine"] $workspace1
+assign [title="neomutt"] $workspace1
+assign [class="Thunderbird"] $workspace1
+
+assign [class="Firefox"] $workspace2
+assign [class="qutebrowser"] $workspace2
+
+assign [class="code"] $workspace3
+assign [class="Code"] $workspace3
+assign [class="Gummi"] $workspace3
+
+assign [class="VMWare"] $workspace4
+
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym j resize shrink width 1 px or 1 ppt
+    bindsym k resize grow height 1 px or 1 ppt
+    bindsym l resize shrink height 1 px or 1 ppt
+    bindsym m resize grow width 1 px or 1 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 1 px or 1 ppt
+    bindsym Down resize grow height 1 px or 1 ppt
+    bindsym Up resize shrink height 1 px or 1 ppt
+    bindsym Right resize grow width 1 px or 1 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #FFFFFF #FFFFFF #FFFFFF #3030FF   #FFFFFF
+client.focused_inactive #2C2C2C #6C6C6C #FFFFFF #6C6C6C   #2C2C2C
+client.unfocused        #2C2C2C #2C2C2C #FFFFFF #2C2C2C   #2C2C2C
+client.urgent           #FF0000 #FF0000 #FFFFFF #FF0000   #FF0000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+client.background       #FFFFFF
+
+bar {
+    position bottom
+    mode hide
+    hidden_state hide
+    modifier Mod4
+    workspace_buttons no
+    font pango:Input Mono Condensed 8
+    status_command bumblebee-status -m arch-update nic cpu memory battery date time pasink pasource -p timeout=1 time.format="%R" date.format="%B %d %Y" -t default

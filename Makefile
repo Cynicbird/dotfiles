@@ -27,19 +27,6 @@ common:           #
 	sudo rm /etc/pacman.conf
 	sudo stow pacman -t / > /dev/null
 
-laptop: graphic   #
-	@command -v sudo > /dev/null || echo "[*] install and configure sudo"
-	@command -v tlp > /dev/null || echo "[*] install tlp"
-	sudo systemctl enable tlp.service
-	sudo systemctl start tlp.service
-	@command -v wpa_supplicant > /dev/null || echo "[*] install wpa_supplicant"
-	sudo ln -sf /usr/share/dhcpcd/hooks/10-wpa_supplicant /usr/lib/dhcpcd/dhcpcd-hooks/
-	sudo stow wpa_supplicant -t / > /dev/null
-	@echo '[*] get wifi card name (via `ip a`)'
-	@echo '[*] run `sudo systemctl enable dhcpcd@<card name>`'
-	@echo '[*] run `sudo systemctl start dhcpcd@<card name>`'
-
-
 graphic: common   #
 	stow homepage
 	@command -v mako > /dev/null || echo "[*] install mako"

@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/mear/yay/src'
+let g:netrw_dirhist_0='/etc/polkit-1'
+let g:netrw_dirhist_9='/home/mear/Téléchargements'
+let g:netrw_dirhist_8='/home/mear/.config/sway'
+let g:netrw_dirhist_7='/home/mear/.config/zsh'
+let g:netrw_dirhist_6='/home/mear/MSI/master/modules_c'
+let g:netrw_dirhist_5='/home/mear/MSI/master'
+let g:netrw_dirhist_4='/home/mear/MSI'
+let g:netrw_dirhist_3='/home/mear/.zsh.d'
+let g:netrw_dirhist_2='/mear/dotfiles/sway/.config'

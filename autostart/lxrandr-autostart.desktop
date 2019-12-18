@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Démarrage automatique de LXRandR
+Comment=Démarrer xrandr avec les paramètres configurés dans LXRandR
+Exec=sh -c 'xrandr --output HDMI-2 --mode 1280x1024 --output eDP-1 --mode 1280x1024 --same-as HDMI-2'
+OnlyShowIn=LXDE

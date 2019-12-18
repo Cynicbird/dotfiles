@@ -1,5 +1,5 @@
 [options]
-font = Input Mono Condensed 9
+font = Input Mono Condensed 12
 
 ##
 clickable_url = true

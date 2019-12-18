@@ -1,0 +1,38 @@
+[Added Associations]
+application/xml=mousepad.desktop;uxterm.desktop;chromium.desktop;libreoffice-writer.desktop;
+application/zip=xarchiver.desktop;7zFM.desktop;
+text/x-java=mousepad.desktop;
+image/jpeg=ristretto.desktop;
+application/javascript=mousepad.desktop;
+application/x-php=firefox.desktop;mousepad.desktop;
+text/plain=mousepad.desktop;
+video/mp4=org.xfce.Parole.desktop;
+text/markdown=mousepad.desktop;
+application/xslt+xml=mousepad.desktop;uxterm.desktop;
+application/x-compressed-tar=7zFM.desktop;
+application/sql=mousepad.desktop;
+application/xmind=xmind.desktop;
+text/css=mousepad.desktop;
+text/html=chromium.desktop;mousepad.desktop;
+image/png=ristretto.desktop;
+image/svg+xml=chromium.desktop;ristretto.desktop;libreoffice-writer.desktop;
+application/vnd.oasis.opendocument.text=libreoffice-writer.desktop;
+application/x-7z-compressed=7zFM.desktop;
+image/vnd.microsoft.icon=userapp-Composition de données-9XE9KZ.desktop;
+application/binary=firefox.desktop;
+application/pdf=firefox.desktop;libreoffice-draw.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-I7ETUZ.desktop;
+message/rfc822=userapp-Thunderbird-I7ETUZ.desktop;
+text/x-python=mousepad.desktop;
+
+[Removed Associations]
+
+[Default Applications]
+application/pdf=firefox.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-I7ETUZ.desktop
+message/rfc822=userapp-Thunderbird-I7ETUZ.desktop
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop

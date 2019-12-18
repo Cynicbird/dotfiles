@@ -1,0 +1,259 @@
+" plugins
+call plug#begin()
+
+" minimal completion with tab
+Plug 'ajh17/VimCompletesMe'
+set completeopt=menuone,longest
+
+" syntax for ALL files
+Plug 'sheerun/vim-polyglot'
+
+" pain-less tags management
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+noremap <M-Left> <C-T>
+noremap <M-Right> <C-]>
+noremap <M-h> <C-T>
+noremap <M-l> <C-]>
+
+" quoting/parenthesizing
+Plug 'tpope/vim-surround'
+
+" because, go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+let g:go_fmt_command = 'goimports'
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+
+" and because python
+Plug 'psf/black'
+let g:black_virtualenv = '~/.virtual-env/black'
+"autocmd BufWritePre *.py execute ':Black'"
+
+" repeating commands (useful for surround)
+Plug 'tpope/vim-repeat'
+
+" lint
+Plug 'w0rp/ale'
+let g:ale_fixers = {
+	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\ }
+let g:ale_fix_on_save = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+
+" detect indentation
+Plug 'tpope/vim-sleuth'
+
+" fuzzy finding for everything (files, buffers..)
+Plug 'junegunn/fzf.vim'
+inoremap <C-b> <Esc>:Buffers<CR>
+nnoremap <C-b> :Buffers<CR>
+inoremap <C-e> <Esc>:Files<CR>
+nnoremap <C-e> :Files<CR>
+
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-rmarkdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 1
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it can be use in markdown file
+" default: 0
+let g:mkdp_command_for_global = 0
+
+" set to 1, preview server available to others in your network
+" by default, the server listens on localhost (127.0.0.1)
+" default: 0
+let g:mkdp_open_to_the_world = 0
+
+" use custom IP to open preview page
+" useful when you work in remote vim and preview on local browser
+" more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" default empty
+let g:mkdp_open_ip = ''
+
+" specify browser to open preview page
+" default: ''
+let g:mkdp_browser = ''
+
+" set to 1, echo preview page url in command line when open preview page
+" default is 0
+let g:mkdp_echo_preview_url = 0
+
+" a custom vim function name to open preview page
+" this function will receive url as param
+" default is empty
+let g:mkdp_browserfunc = ''
+
+" options for markdown render
+" mkit: markdown-it options for render
+" katex: katex options for math
+" uml: markdown-it-plantuml options
+" maid: mermaid options
+" disable_sync_scroll: if disable sync scroll, default 0
+" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+"   middle: mean the cursor position alway show at the middle of the preview page
+"   top: mean the vim top viewport alway show at the top of the preview page
+"   relative: mean the cursor position alway show at the relative positon of the preview page
+" hide_yaml_meta: if hide yaml metadata, default is 1
+" sequence_diagrams: js-sequence-diagrams options
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {}
+    \ }
+
+" use a custom markdown style must be absolute path
+let g:mkdp_markdown_css = ''
+
+" use a custom highlight style must absolute path
+let g:mkdp_highlight_css = ''
+
+" use a custom port to start server or random for empty
+let g:mkdp_port = ''
+
+" preview page title
+" ${name} will be replace with the file name
+let g:mkdp_page_title = '「${name}」'
+" normal/insert
+" example
+nmap <C-s> <Plug>MarkdownPreview
+nmap <M-s> <Plug>MarkdownPreviewStop
+nmap <C-p> <Plug>MarkdownPreviewToggle
+call plug#end()
+
+" colorsceheme
+colorscheme corporation
+
+" common options
+set number
+syntax on
+filetype on
+filetype plugin on
+filetype indent on
+set autoindent
+set mouse=a
+set clipboard=unnamedplus " universal clipboard
+set linebreak
+set backspace=indent,eol,start
+set whichwrap+=<,>,h,l,[,]
+set scrolloff=5
+set autowrite
+set autoread
+set ignorecase
+set smartcase
+set noshowmode
+set incsearch
+set hlsearch
+set autochdir " cd to current file dir
+" indentation
+set cindent
+set copyindent
+set preserveindent
+set noexpandtab
+set softtabstop=0
+set shiftwidth=4
+set tabstop=4
+" splits orientations
+set splitbelow
+set splitright
+
+" autoclose ", ', (, [, {    (plugins are so useless)
+inoremap <silent> " ""<Left>
+inoremap <silent> <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
+inoremap <silent> ' ''<Left>
+inoremap <silent> <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
+inoremap <silent> ( ()<Left>
+inoremap <silent> <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap <silent> [ []<Left>
+inoremap <silent> <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+inoremap <silent> { {}<Left>
+inoremap <silent> <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
+inoremap <silent> {<CR> {<CR>}<ESC>O
+inoremap <silent> {;<CR> {<CR>};<ESC>O
+inoremap <silent> "" ""
+inoremap <silent> '' ''
+inoremap <silent> () ()
+inoremap <silent> [] []
+inoremap <silent> {} {}
+
+" wrapped lines are multiple lines with j/k
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+nnoremap <silent> <Down> gj
+nnoremap <silent> <Up> gk
+
+" 'cause I fail so much
+nnoremap <silent> q: :q<CR>
+
+" hide hightlight when not searching ('/' key)
+nnoremap <silent> <Esc> :noh<Esc>
+
+" leave insert mode in terminal with Esc
+tnoremap <silent> <Esc> <C-\><C-n>
+
+" date
+function! Hour()
+	return system("date '+%H:%M' 2> /dev/null | tr -d '\n'")
+endfunction
+function! Date()
+	return system("date '+%d.%m.%Y' 2> /dev/null | tr -d '\n'")
+endfunction
+
+" latex mode (export to PDF on save + aspell)
+augroup tex
+  autocmd!
+  autocmd BufWritePost *.tex silent! !pdflatex %
+  autocmd FileReadPost *.tex silent! setlocal spell spelllang=fr
+augroup END
+
+" prettier status line
+highlight User1 ctermfg=white ctermbg=240
+highlight User2 ctermfg=white ctermbg=235
+" <path> <flags>                       [<percent> <line/column>] <hour/date>
+set laststatus=2
+set statusline=
+set statusline+=%2*                       " set colors
+set statusline+=%1*\ %F\ %2*              " file full path
+set statusline+=\ %h%w%m%r                " help file + modified + read only
+set statusline+=%=%1*                     " swith to right
+set statusline+=\ [%p%%,\ %l/%L:%c]       " current line/column
+set statusline+=\ %{Hour()}\ -\ %{Date()} " current hour
+set statusline+=\                         " final space
+
+set fillchars+=vert:\  " vertical separator
+
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
